@@ -9,17 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class SimpleJDBC_DAO {
+public class SimpleJDBC_DAO implements SimpleDAO {
     private Connection connection = null;
 
     @PostConstruct
-    private void createConnection() throws SQLException {
-        if (connection == null || connection.isClosed())
-            connection = DriverManager.getConnection(
-                    Properties.dbPath, Properties.login, Properties.password);
+    private void createConnection() {
+        try {
+
+            if (connection == null || connection.isClosed()) {
+                connection = DriverManager.getConnection(
+                        Properties.dbPath, Properties.dbUser, Properties.dbPassword);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
-    public List<String> readAllRecords()  {
+    public List<String> readAllRecords() {
         try {
             createConnection();
             Statement statement = connection.createStatement();
@@ -39,8 +45,14 @@ public class SimpleJDBC_DAO {
     }
 
     @PreDestroy
-    private void connectionCloser() throws SQLException {
-        if (connection != null && !connection.isClosed())
-            connection.close();
+    private void connectionFinalizer() {
+        try {
+
+            if (connection != null && !connection.isClosed())
+                connection.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }
