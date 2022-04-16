@@ -1,14 +1,14 @@
 package my.project.spring_configuration;
 
 public class PetGreeter {
-    private PetClinic petClinic;
+    private CatHome catHome;
 
-    PetGreeter(PetClinic petClinic) {
-            this.petClinic = petClinic;
+    PetGreeter(CatHome catHome) {
+            this.catHome = catHome;
     }
 
     public void greetAll() {
-        for (Pet pet: petClinic.petList)
+        for (Pet pet: catHome.petList)
             System.out.println(pet.greet());
     }
 }

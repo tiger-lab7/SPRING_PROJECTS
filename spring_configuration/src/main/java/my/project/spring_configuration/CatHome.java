@@ -3,16 +3,16 @@ package my.project.spring_configuration;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PetClinic {
-    public String clinicName;
+public class CatHome {
+    public String homeName;
 
     List<Pet> petList = new LinkedList<>();
 
-    PetClinic(Pet pet) {
+    CatHome(Pet pet) {
         petList.add(pet);
     }
 
-    public void setClinicName(String clinicName) {
-        this.clinicName = clinicName;
+    public void setHomeName(String homeName) {
+        this.homeName = homeName;
     }
 }
