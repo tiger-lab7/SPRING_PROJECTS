@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TOMCAT CALCULATOR</title>
+</head>
+<body>
+    <div>
+        <p th:text="'HELLO ' + ${name}"></p>
+    </div>
+    <div>
+        <input id="input" maxlength="30">
+        <button onclick=sendValues()>Calculate!</button>
+    </div>
+    <div>
+        <textarea id="output" cols="40"></textarea>
+    </div>
+</body>
+
+<script>
+    function sendValues() {
+        let inputString = document.getElementById("input").value;
+        let result = eval(inputString);
+        document.getElementById("output").innerHTML = result;
+    }
+</script>
+</html>
