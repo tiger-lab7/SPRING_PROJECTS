@@ -15,7 +15,7 @@ public class TomcatLauncher {
 
             Wrapper servletFirst = Tomcat.addServlet(ctx, "myServlet", new HelloServlet());
             servletFirst.setLoadOnStartup(1);
-            servletFirst.addMapping("/first");
+            servletFirst.addMapping("/");
 
             Wrapper servletAnother = Tomcat.addServlet(ctx, "anotherServlet", new AnotherServlet());
             servletAnother.setLoadOnStartup(1);

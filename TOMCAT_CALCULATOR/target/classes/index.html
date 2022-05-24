@@ -10,7 +10,8 @@
     </div>
     <div>
         <input id="input" maxlength="30">
-        <button onclick=sendValues()>Calculate!</button>
+        <button onclick=calculateBrowser()>Calculate in browser!</button>
+        <button onclick=calculateServer()>Calculate on Server!</button>
     </div>
     <div>
         <textarea id="output" cols="40"></textarea>
@@ -18,10 +19,25 @@
 </body>
 
 <script>
-    function sendValues() {
+    function calculateBrowser() {
         let inputString = document.getElementById("input").value;
         let result = eval(inputString);
         document.getElementById("output").innerHTML = result;
     }
+
+    function calculateServer() {
+        const xhr = new XMLHttpRequest();
+        const body = String(document.getElementById("input").value);
+        const path = "/localhost:8085/";
+        xhr.open("POST", path);
+        xhr.setRequestHeader('Content-Type', 'application/text');
+        xhr.send(body);
+
+        xhr.onload = () => {
+            const result = xhr.responseText;
+            document.getElementById("output").innerHTML = result;
+        }
+    }
+
 </script>
 </html>

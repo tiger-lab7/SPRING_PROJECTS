@@ -1,3 +1,4 @@
+import Model.CalculatorEngine;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServlet;
@@ -58,9 +59,14 @@ public class HelloServlet extends HttpServlet {
             inputStream.close();
         }
 
-        ServletOutputStream servletOutputStream = response.getOutputStream();
-        servletOutputStream.print("Hello from Servlet " + requestBody + "!");
+        System.out.println(requestBody);
 
+        //System.out.println("RESULT: " + CalculatorEngine.calculate(requestBody));
+
+        //response.setStatus(HttpServletResponse.SC_OK);
+
+        ServletOutputStream servletOutputStream = response.getOutputStream();
+        servletOutputStream.print(CalculatorEngine.calculate(requestBody));
         servletOutputStream.close();
     }
 }
