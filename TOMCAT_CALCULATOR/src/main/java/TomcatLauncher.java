@@ -11,7 +11,7 @@ public class TomcatLauncher {
             tomcat.setPort(8085);
             tomcat.getConnector();
 
-            Context ctx = tomcat.addContext("", null);
+            Context ctx = tomcat.addContext("/src/main/resources", null);
 
             Wrapper servletFirst = Tomcat.addServlet(ctx, "myServlet", new HelloServlet());
             servletFirst.setLoadOnStartup(1);

@@ -1,45 +1,49 @@
 package Model;
 
-import java.util.HashMap;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Map;
 import java.util.Stack;
 
 public class CalculatorEngine {
-    private enum Actions { PLUS, MINUS};
-    private final static Map<String, Actions> commands = Map.of("+", Actions.PLUS, "-", Actions.MINUS);
-    private static Stack<String> numberStack = new Stack<>();
-    private static Stack<Actions> commandStack = new Stack<>();
+    private enum Actions {PLUS, MINUS}
+
+    private final static Map<String, Actions> commands
+            = Map.of("+", Actions.PLUS, "-", Actions.MINUS);
+    private static final Deque<Double> numberDeque = new ArrayDeque<>();
+    private static final Deque<Actions> commandDeque = new ArrayDeque<>();
 
     public static String calculate(String input) {
-        /*
+
         String number = "";
         for (char let : input.toCharArray()) {
             if (Character.isDigit(let)) number += let;
             else if(commands.containsKey(String.valueOf(let))) {
                 if (!number.equals("")) {
-                    numberStack.push(number);
+                    numberDeque.addLast(Double.valueOf(number));
                     number = "";
                 }
-                commandStack.push(commands.get(String.valueOf(let)));
+                commandDeque.addLast(commands.get(String.valueOf(let)));
             }
         }
 
-        double result = 0;
-        while(!commandStack.isEmpty()) {
-            switch (commandStack.pop()) {
+        if (!number.equals(""))
+            numberDeque.push(Double.valueOf(number));
+
+        while(!commandDeque.isEmpty() && numberDeque.size() >= 2) {
+            switch (commandDeque.poll()) {
                 case PLUS -> {
-                    result += Double.parseDouble(numberStack.pop()) + Double.parseDouble(numberStack.pop());
+                    numberDeque.addFirst(numberDeque.poll() + numberDeque.poll());
                 }
                 case MINUS -> {
-                    result += Double.parseDouble(numberStack.pop()) - Double.parseDouble(numberStack.pop());
+                    numberDeque.addFirst(numberDeque.poll() - numberDeque.poll());
                 }
             }
-        }*/
-        //return Double.toString(result);
-        return input;
-    }
+        }
+        if (!numberDeque.isEmpty())
+            return Double.toString(numberDeque.pop());
 
-    public static void main(String[] args) {
-        System.out.println(calculate("5657+343434"));
+        return "";
+        //return input;
     }
 }

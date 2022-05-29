@@ -1,0 +1,13 @@
+.hello {
+    font-size: large;
+    font-family: Calibri;
+    color: indigo;
+    background-color: black;
+    alignment: center;
+}
+input {
+    font-size: medium;
+    font-family: Calibri;
+    color: yellow;
+    background-color: black;
+}

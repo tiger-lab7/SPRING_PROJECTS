@@ -11,6 +11,7 @@ import org.thymeleaf.context.IContext;
 import org.thymeleaf.templateresolver.StringTemplateResolver;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -37,13 +38,14 @@ public class HelloServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         TemplateEngine templateEngine = new TemplateEngine();
-        StringTemplateResolver stringTemplateResolver = new StringTemplateResolver();
+        ServletContextTemplateResolver stringTemplateResolver = new StringTemplateResolver();
+        TemplateResolver
         templateEngine.setTemplateResolver(stringTemplateResolver);
 
         Context context = new Context();
         context.setVariables(Map.of("name", "IGOR"));
 
-        templateEngine.process(indexHtml,context, response.getWriter());
+        templateEngine.process(indexHtml, context, response.getWriter());
     }
 
     @Override
@@ -61,12 +63,8 @@ public class HelloServlet extends HttpServlet {
 
         System.out.println(requestBody);
 
-        //System.out.println("RESULT: " + CalculatorEngine.calculate(requestBody));
-
-        //response.setStatus(HttpServletResponse.SC_OK);
-
         ServletOutputStream servletOutputStream = response.getOutputStream();
-        servletOutputStream.print(CalculatorEngine.calculate(requestBody));
+        servletOutputStream.write(CalculatorEngine.calculate(requestBody).getBytes(StandardCharsets.UTF_8));
         servletOutputStream.close();
     }
 }
