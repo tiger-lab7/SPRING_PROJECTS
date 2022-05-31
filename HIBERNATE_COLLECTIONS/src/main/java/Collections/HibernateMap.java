@@ -1,31 +1,27 @@
 package Collections;
 
 import Operate.HibernateConnection;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.*;
 import org.hibernate.Session;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class HibernateMap {
+    private static final String DATA_PATH = "src/main/resources/countries_data.json";
 
+    @SneakyThrows
     public static void testHibernateMap() {
-        Country usa = new Country("USA", Map.of(
-                "New York", 8622357L,
-                "Los Angeles", 4085014L,
-                "Chicago", 2670406L));
-        Country australia = new Country("Australia", Map.of(
-                "Sydney", 4627345L,
-                "Melbourne", 4246375L,
-                "Brisbane", 2189878L));
-        Country indonesia = new Country("Indonesia", Map.of(
-                "Jakarta", 8540121L,
-                "Surabaya", 2374658L,
-                "Medan", 1750971L));
-        List<Country> countries = List.of(usa, australia, indonesia);
+
+        List<Country> countries = readJsonData();
 
         Session session = HibernateConnection.INSTANCE.getSession();
         session.beginTransaction();
@@ -34,17 +30,29 @@ public class HibernateMap {
 
         session.createQuery("from Country").list().forEach(System.out::println);
 
-        session.close();
+        //SimpleOperations.dropAllTables(session);
 
+        session.close();
         HibernateConnection.INSTANCE.closeSessionFactory();
     }
 
+    @SneakyThrows
+    private static void writeJsonData(List<Country> countries) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.writeValue(new File(DATA_PATH), countries);
+    }
+
+    @SneakyThrows
+    private static List<Country> readJsonData() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true);
+        return Arrays.asList(objectMapper.readValue(new File(DATA_PATH), Country[].class).clone());
+    }
 }
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@Data
 class Country {
     @Id
     private String name;
@@ -53,7 +61,31 @@ class Country {
     @CollectionTable(name = "cities")
     @MapKeyColumn(name = "city")
     @Column(name = "population")
-    protected Map<String, Long> citiesPopulation;
+    private Map<String, Long> citiesPopulation;
+
+    @CollectionTable(name = "attraction_list")
+    @OneToMany(fetch = FetchType.EAGER)
+    @Column(name = "attraction")
+    @Cascade(CascadeType.ALL)
+    private List<Attraction> attractionsList;
+}
+
+@Entity
+@NoArgsConstructor
+@ToString
+class Attraction {
+    @Id
+    @GeneratedValue
+    private long id;
+
+    @Column
+    @Setter
+    @Getter
+    private String name;
+
+    public Attraction(String name) {
+        this.name = name;
+    }
 }
 
 
