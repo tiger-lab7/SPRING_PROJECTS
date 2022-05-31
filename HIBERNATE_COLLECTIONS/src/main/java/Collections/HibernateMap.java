@@ -2,6 +2,7 @@ package Collections;
 
 import Operate.HibernateConnection;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.*;
@@ -45,8 +46,8 @@ public class HibernateMap {
     @SneakyThrows
     private static List<Country> readJsonData() {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true);
-        return Arrays.asList(objectMapper.readValue(new File(DATA_PATH), Country[].class));
+        return objectMapper.readValue(new File(DATA_PATH), new TypeReference<>() {
+        });
     }
 }
 
