@@ -46,7 +46,7 @@ public class HibernateMap {
     private static List<Country> readJsonData() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true);
-        return Arrays.asList(objectMapper.readValue(new File(DATA_PATH), Country[].class).clone());
+        return Arrays.asList(objectMapper.readValue(new File(DATA_PATH), Country[].class));
     }
 }
 
