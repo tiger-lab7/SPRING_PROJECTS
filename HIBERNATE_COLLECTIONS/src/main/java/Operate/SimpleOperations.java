@@ -2,7 +2,6 @@ package Operate;
 
 import org.hibernate.Session;
 
-import javax.persistence.Table;
 import java.util.List;
 
 public class SimpleOperations {

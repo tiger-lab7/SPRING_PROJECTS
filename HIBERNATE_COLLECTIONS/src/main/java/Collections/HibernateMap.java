@@ -1,9 +1,7 @@
 package Collections;
 
 import Operate.HibernateConnection;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.*;
 import org.hibernate.Session;
@@ -12,7 +10,6 @@ import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -65,7 +62,7 @@ class Country {
     private Map<String, Long> citiesPopulation;
 
     @CollectionTable(name = "attraction_list")
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @Column(name = "attraction")
     @Cascade(CascadeType.ALL)
     private List<Attraction> attractionsList;
@@ -83,10 +80,6 @@ class Attraction {
     @Setter
     @Getter
     private String name;
-
-    public Attraction(String name) {
-        this.name = name;
-    }
 }
 
 
