@@ -27,7 +27,7 @@ public class HibernateMap {
                 "Medan", 1750971L));
         List<Country> countries = List.of(usa, australia, indonesia);
 
-        Session session = HibernateConnection.getSession();
+        Session session = HibernateConnection.INSTANCE.getSession();
         session.beginTransaction();
         countries.forEach(session::saveOrUpdate);
         session.getTransaction().commit();
@@ -36,7 +36,7 @@ public class HibernateMap {
 
         session.close();
 
-        HibernateConnection.closeSessionFactory();
+        HibernateConnection.INSTANCE.closeSessionFactory();
     }
 
 }
