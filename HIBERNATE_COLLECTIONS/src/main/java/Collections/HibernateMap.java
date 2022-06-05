@@ -15,6 +15,7 @@ import java.util.Map;
 
 public class HibernateMap {
     private static final String DATA_PATH = "src/main/resources/countries_data.json";
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @SneakyThrows
     public static void testHibernateMap() {
@@ -36,13 +37,11 @@ public class HibernateMap {
 
     @SneakyThrows
     private static void writeJsonData(List<Country> countries) {
-        ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(new File(DATA_PATH), countries);
     }
 
     @SneakyThrows
     private static List<Country> readJsonData() {
-        ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(new File(DATA_PATH), new TypeReference<>() {
         });
     }
