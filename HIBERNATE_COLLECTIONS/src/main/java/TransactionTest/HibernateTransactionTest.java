@@ -27,7 +27,7 @@ public class HibernateTransactionTest {
         //object1.name = "CAT OLIVER";
         session.getTransaction().commit();
 
-        session.createQuery("from MyClass").list().forEach(System.out::println);
+        session.createQuery("from MyClass").list().forEach(logger::info);
         session.close();
     }
 }
