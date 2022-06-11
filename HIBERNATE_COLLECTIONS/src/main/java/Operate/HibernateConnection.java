@@ -10,8 +10,8 @@ public enum HibernateConnection {
 
     public Session getSession() {
         if (sessionFactory == null) {
-            Configuration configuration = new Configuration();
-            configuration.configure();
+            Configuration configuration = new Configuration(); // reading hibernate.properties
+            configuration.configure(); // reading hibernate.cfg.xml
             sessionFactory = configuration.buildSessionFactory();
         }
         return sessionFactory.openSession();
