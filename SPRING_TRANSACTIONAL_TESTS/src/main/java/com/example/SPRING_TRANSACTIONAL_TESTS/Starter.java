@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.time.Instant;
+import java.util.Date;
 
 @Component
 public class Starter {
@@ -20,23 +20,23 @@ public class Starter {
 
     @PostConstruct
     public void run() {
-        user = new DataClass("Igor", Instant.parse("2022-05-20T22:00:00.00Z"));
-        method1();
+        user = new DataClass(1L,"Igor", new Date(2022, 6, 24, 6, 00));
+        methodA();
 
         //dataClassCRUDRepository.findAll().forEach(System.out::println);
 
         dataClassJPARepository.getByName("Igor").forEach(System.out::println);
     }
 
-    @Transactional(propagation = Propagation.NEVER)
-    public void method1() {
+    @Transactional
+    public void methodA() {
         dataClassCRUDRepository.save(user);
-        user.setAddTime(Instant.parse("2022-01-20T22:00:00.00Z"));
-        method2();
+        user.setCurrentTimeStamp(new Date(2022, 6, 24, 7, 30));
+        methodB();
     }
 
     @Transactional
-    public void method2() {
+    public void methodB() {
        dataClassCRUDRepository.save(user);
     }
 }

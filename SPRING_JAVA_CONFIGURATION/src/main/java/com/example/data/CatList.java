@@ -7,7 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class CatList {
+public enum CatList {
+    INSTANCE;
     private final String catListJsonURL = "src/main/resources/cats_in_hotel.json";
     private List<Cat> catList;
 

@@ -4,52 +4,38 @@ package com.example.SPRING_TRANSACTIONAL_TESTS;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.util.Date;
 
 @Entity
 @Table(name = "user_data")
 @NoArgsConstructor
+@ToString
 public class DataClass {
 
-
+    @Id
+    @Setter
+    @Getter
     private Long id;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    @Id
-    @GeneratedValue
-    public Long getId() {
-        return id;
-    }
-
-    @Column(name = "user")
+    @Column(name = "name")
     @Getter
     @Setter
     private String name;
 
-    @Column(name = "add_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date")
+    @Temporal(value = TemporalType.TIMESTAMP)
     @Getter
     @Setter
-    private Instant addTime;
+    private Date currentTimeStamp;
 
 
-    public DataClass(String name, Instant addTime) {
+    public DataClass(Long id, String name, Date currentTimeStamp) {
+        this.id = id;
         this.name = name;
-        this.addTime = addTime;
-    }
-
-    @Override
-    public String toString() {
-        return "DataClass{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", addTime=" + addTime +
-                '}';
+        this.currentTimeStamp = currentTimeStamp;
     }
 }
