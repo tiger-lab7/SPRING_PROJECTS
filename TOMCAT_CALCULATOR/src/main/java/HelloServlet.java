@@ -23,12 +23,12 @@ public class HelloServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        try {
+        try (
             indexHtml =
                     new BufferedReader(
                             new FileReader("src/main/resources/index.html"))
                             .lines()
-                            .collect(Collectors.joining());
+                            .collect(Collectors.joining())) {}
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -54,11 +54,9 @@ public class HelloServlet extends HttpServlet {
         InputStream inputStream = request.getInputStream();
         String requestBody = "";
         if (inputStream != null) {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            requestBody = bufferedReader.lines().collect(Collectors.joining());
-
-            bufferedReader.close();
-            inputStream.close();
+			try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream)) {
+					requestBody = bufferedReader.lines().collect(Collectors.joining());
+			} catch (IOException ex) { ex.printStackTrace(); }
         }
 
         System.out.println(requestBody);
