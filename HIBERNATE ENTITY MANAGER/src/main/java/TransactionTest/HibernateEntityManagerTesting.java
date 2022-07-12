@@ -1,6 +1,5 @@
 package TransactionTest;
 
-import Operate.HibernateEntityManager;
 import lombok.ToString;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +26,7 @@ public class HibernateEntityManagerTesting {
         session.createQuery("from MyClass").list().forEach(logger::info);
         session.close();*/
 
-        EntityManager entityManager = HibernateEntityManager.INSTANCE.getEntityManager();
+        EntityManager entityManager = HibernateEntityManagerCreator.INSTANCE.getEntityManager();
         entityManager.persist(object1);
         entityManager.close();
 

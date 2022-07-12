@@ -1,10 +1,10 @@
-package Operate;
+package TransactionTest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public enum HibernateEntityManager {
+public enum HibernateEntityManagerCreator {
     INSTANCE;
 
     private EntityManagerFactory entityManagerFactory;

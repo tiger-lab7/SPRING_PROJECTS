@@ -20,20 +20,18 @@ public class HibernateMap {
 
     @SneakyThrows
     public static void testHibernateMap() {
-        //SimpleOperations.dropAllTables();
+
 
         List<Country> countries = readJsonData();
 
         Session session = HibernateConnection.INSTANCE.getSession();
+        SimpleOperations.dropAllTables(session);
+
         session.beginTransaction();
-
         countries.forEach(session::saveOrUpdate);
-
         session.getTransaction().commit();
 
         session.createQuery("from Country").list().forEach(System.out::println);
-
-
 
         session.close();
         HibernateConnection.INSTANCE.closeSessionFactory();

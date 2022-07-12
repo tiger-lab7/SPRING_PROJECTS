@@ -6,9 +6,8 @@ import java.util.List;
 
 public class SimpleOperations {
 
-    public static void dropAllTables() {
+    public static void dropAllTables(Session session) {
 
-        Session session = HibernateConnection.INSTANCE.getSession();
         session.beginTransaction();
 
         List tableList =
@@ -20,6 +19,5 @@ public class SimpleOperations {
         });
 
         session.getTransaction().commit();
-        session.close();
     }
 }

@@ -9,7 +9,6 @@
         <mapping class="Collections.Country"/>
         <mapping class="Collections.Attraction"/>
 
-        <mapping class="TransactionTest.MyClass"/>
 
     </session-factory>
 </hibernate-configuration>
