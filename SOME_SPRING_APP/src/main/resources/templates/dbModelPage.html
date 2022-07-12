@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>AIRPORT FROM DB DEMO</title>
+</head>
+<body>
+
+<ol>
+    <li th:each="row : ${dbResultList}" th:text="${row}"></li>
+</ol>
+
+</body>
+</html>

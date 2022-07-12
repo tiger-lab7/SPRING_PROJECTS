@@ -1,4 +1,4 @@
-package com.spring;
+package com.spring.Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/")
-public class SomeController {
+public class StartPageController {
     private List<String> tasks = List.of("Send message", "Create program", "Sleep");
 
     @GetMapping
