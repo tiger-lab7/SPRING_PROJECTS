@@ -63,14 +63,13 @@ class Country {
 
     @CollectionTable(name = "cities") // Создание таблицы с именем cities для содержимого Map
     @ElementCollection // Аннотация для элементов "примитивных" коллекций
-    @MapKeyColumn(name = "city") // Имя левой колонки ссылок в таблице для Map
-    @Column(name = "population") // Имя правой колонки ссылок
+    @MapKeyColumn(name = "city") // Имя колонки в таблице для ключей Map
+    @Column(name = "population") // Имя колонки в таблице для значений Map
     private Map<String, Long> citiesPopulation;
 
-    @CollectionTable(name = "attraction_list")
+    @CollectionTable(name = "attraction_list") // Имя промежуточной таблицы ссылок на таблицы country и attraction
     @OneToMany(fetch = FetchType.LAZY) // Содержимое списка будет загружно при необходимости отдельным sql-запросом
-    @Column(name = "attractions") // Имя колонки ссылок
-    @Cascade(CascadeType.ALL) // Изменение, удаление объектов коллекции зависит от объекта Country
+    @Cascade(CascadeType.ALL) // Изменение, удаление объектов коллекции зависит от объекта сountry
     @ToString.Exclude // Аннотация Lombok для печати списка
     private List<Attraction> attractionsList;
 }
