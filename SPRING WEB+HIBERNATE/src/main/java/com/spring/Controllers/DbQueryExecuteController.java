@@ -32,6 +32,9 @@ public class DbQueryExecuteController {
     public String executeQuery(@RequestBody String query) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         List<Map<String, Object>> resultList = jdbcTemplate.queryForList(query);
+        if (resultList.size() == 0)
+            return "";
+
         ObjectWriter objectWriter =
                 objectMapper.writerFor(new TypeReference<List<Map<String, Object>>>() {});
         String result = objectWriter.writeValueAsString(resultList);

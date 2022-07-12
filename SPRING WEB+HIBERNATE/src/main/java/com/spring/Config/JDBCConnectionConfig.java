@@ -5,11 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 
 @Configuration
 public class JDBCConnectionConfig {
     @Bean
-    public DataSource jdbcDataSource() {
+    public DataSource jdbcDataSource() throws IOException {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://localhost:5432/demo");
