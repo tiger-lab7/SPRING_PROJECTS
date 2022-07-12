@@ -25,7 +25,7 @@ public class HibernateMap {
         List<Country> countries = readJsonData();
 
         Session session = HibernateConnection.INSTANCE.getSession();
-        SimpleOperations.dropAllTables(session);
+        //SimpleOperations.dropAllTables(session);
 
         session.beginTransaction();
         countries.forEach(session::saveOrUpdate);
@@ -67,7 +67,7 @@ class Country {
 
     @CollectionTable(name = "attraction_list") // Имя промежуточной таблицы ссылок на таблицы country и attraction
     @OneToMany(fetch = FetchType.LAZY) // Содержимое списка будет загружно при необходимости отдельным sql-запросом
-    @Cascade(CascadeType.ALL) // Изменение, удаление объектов коллекции зависит от объекта сountry
+    @Cascade(CascadeType.ALL) // Изменение, удаление объектов коллекции каскадно зависит от объекта сountry
     @ToString.Exclude // Аннотация Lombok для печати списка
     private List<Attraction> attractionsList;
 }
@@ -78,6 +78,8 @@ class Country {
 class Attraction {
     @Id
     @GeneratedValue
+    @Setter
+    @Getter
     private long id;
 
     @Column
