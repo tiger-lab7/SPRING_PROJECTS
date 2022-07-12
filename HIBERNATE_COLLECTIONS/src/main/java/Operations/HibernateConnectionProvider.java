@@ -1,14 +1,14 @@
-package Operate;
+package Operations;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public enum HibernateConnection {
+public enum HibernateConnectionProvider {
     INSTANCE;
     private SessionFactory sessionFactory;
 
-    public Session getSession() {
+    public Session getHibernateSession() {
         if (sessionFactory == null) {
             Configuration configuration = new Configuration(); // reading hibernate.properties
             configuration.configure(); // reading hibernate.cfg.xml

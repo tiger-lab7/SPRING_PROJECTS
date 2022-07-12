@@ -1,4 +1,4 @@
-package Operate;
+package Operations;
 
 import org.hibernate.Session;
 
