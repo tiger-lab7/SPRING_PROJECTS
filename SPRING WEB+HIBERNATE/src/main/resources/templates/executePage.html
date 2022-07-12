@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DB Execute Query Page</title>
+</head>
+<body>
+    <textarea id="input" cols="100" rows="4"></textarea>
+    <button onclick="executeQuery()">Execute Query</button>
+    <div>
+        <textarea id="output" cols="100" rows="30"></textarea>
+    </div>
+</body>
+
+<script>
+    const serverPath = "/db/execute"; // Path must be relative!
+    const input = document.getElementById("input");
+    const output = document.getElementById("output");
+
+    async function executeQuery() {
+        let requestObj = {
+            method: "POST",
+            body: input.value,
+            headers: new Headers({'Content-Type': 'application/text'})
+        }
+
+        let request = new Request(serverPath, requestObj);
+        await fetch(request)
+            .then(resp => resp.json())
+            .then(jsonContent => {
+                for (let row of jsonContent) {
+                    output.innerHTML = `${row}  ${jsonContent[row]} \n`;
+                }
+            });
+    }
+
+</script>
+</html>

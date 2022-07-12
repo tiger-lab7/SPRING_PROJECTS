@@ -1,6 +1,6 @@
 package com.spring.Controllers;
 
-import com.spring.Entities.Airport;
+import com.spring.Repository.Entities.Airport;
 import com.spring.Repository.DbDemoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

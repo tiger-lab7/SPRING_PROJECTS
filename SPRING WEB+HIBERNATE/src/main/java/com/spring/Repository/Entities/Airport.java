@@ -1,7 +1,6 @@
-package com.spring.Entities;
+package com.spring.Repository.Entities;
 
 import lombok.*;
-import org.springframework.data.geo.Point;
 
 
 import javax.persistence.Column;

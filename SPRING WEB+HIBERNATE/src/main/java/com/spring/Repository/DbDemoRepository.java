@@ -1,6 +1,7 @@
 package com.spring.Repository;
 
-import com.spring.Entities.Airport;
+
+import com.spring.Repository.Entities.Airport;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
