@@ -14,6 +14,7 @@
     <Root level="info" additivity="false">
       <AppenderRef ref="console" />
     </Root>
+    <!-- Special loggers for hibernate -->
     <Logger name="org.hibernate.SQL" level="debug"/>
     <Logger name="org.hibernate.type.descriptor.sql" level="trace"/>
   </Loggers>

@@ -1,6 +1,7 @@
 package Collections;
 
 import Operate.HibernateConnection;
+import Operate.SimpleOperations;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.*;
@@ -19,17 +20,20 @@ public class HibernateMap {
 
     @SneakyThrows
     public static void testHibernateMap() {
+        //SimpleOperations.dropAllTables();
 
         List<Country> countries = readJsonData();
 
         Session session = HibernateConnection.INSTANCE.getSession();
         session.beginTransaction();
+
         countries.forEach(session::saveOrUpdate);
+
         session.getTransaction().commit();
 
         session.createQuery("from Country").list().forEach(System.out::println);
 
-        //SimpleOperations.dropAllTables(session);
+
 
         session.close();
         HibernateConnection.INSTANCE.closeSessionFactory();
@@ -47,23 +51,27 @@ public class HibernateMap {
     }
 }
 
-@Entity
-@NoArgsConstructor
-@Data
+@Entity // обязательная аннотация сущности Hibernate
+@NoArgsConstructor // Требуется для Hibernate
+@Getter
+@Setter
+@ToString
 class Country {
-    @Id
+    @Id // Обязательная аннотация первичного ключа
     private String name;
 
-    @ElementCollection
-    @CollectionTable(name = "cities")
-    @MapKeyColumn(name = "city")
-    @Column(name = "population")
+
+    @CollectionTable(name = "cities") // Создание таблицы с именем cities для содержимого Map
+    @ElementCollection // Аннотация для элементов "примитивных" коллекций
+    @MapKeyColumn(name = "city") // Имя левой колонки ссылок в таблице для Map
+    @Column(name = "population") // Имя правой колонки ссылок
     private Map<String, Long> citiesPopulation;
 
     @CollectionTable(name = "attraction_list")
-    @OneToMany(fetch = FetchType.LAZY)
-    @Column(name = "attraction")
-    @Cascade(CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY) // Содержимое списка будет загружно при необходимости отдельным sql-запросом
+    @Column(name = "attractions") // Имя колонки ссылок
+    @Cascade(CascadeType.ALL) // Изменение, удаление объектов коллекции зависит от объекта Country
+    @ToString.Exclude // Аннотация Lombok для печати списка
     private List<Attraction> attractionsList;
 }
 

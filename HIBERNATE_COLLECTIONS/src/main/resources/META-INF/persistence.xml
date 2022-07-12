@@ -10,12 +10,14 @@ http://xmlns.jcp.org/xml/ns/persistence_2_1.xsd">
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <!-- Набор свойств -->
+            <!-- Удалить схему и создать заново -->
            <property
                    name="javax.persistence.schema-generation.database.action"
                    value="drop-and-create"/>
-            <!-- Удалить схему и создать заново -->
-           <property name="hibernate.format_sql" value="true"/>
+
             <!-- Форматировать SQL -->
+           <property name="hibernate.format_sql" value="true"/>
+            <!-- Комментировать SQL -->
            <property name="hibernate.use_sql_comments" value="true"/>
        </properties>
    </persistence-unit>

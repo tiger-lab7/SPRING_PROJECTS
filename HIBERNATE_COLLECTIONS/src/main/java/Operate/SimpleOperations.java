@@ -6,11 +6,12 @@ import java.util.List;
 
 public class SimpleOperations {
 
-    public static void dropAllTables(Session session) {
+    public static void dropAllTables() {
 
+        Session session = HibernateConnection.INSTANCE.getSession();
         session.beginTransaction();
 
-        List<String> tableList =
+        List tableList =
                 session.createSQLQuery("SELECT table_name FROM INFORMATION_SCHEMA.TABLES " +
                         "WHERE table_schema = 'public' ").list();
 
@@ -19,5 +20,6 @@ public class SimpleOperations {
         });
 
         session.getTransaction().commit();
+        session.close();
     }
 }
