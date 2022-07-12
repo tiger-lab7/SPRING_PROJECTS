@@ -2,7 +2,6 @@ package com.spring.Controllers;
 
 import com.spring.Entities.Airport;
 import com.spring.Repository.DbDemoRepository;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/db")
-public class GetDBContoller {
+public class GetDBController {
     @Autowired
     DbDemoRepository dbDemoRepository;
 
