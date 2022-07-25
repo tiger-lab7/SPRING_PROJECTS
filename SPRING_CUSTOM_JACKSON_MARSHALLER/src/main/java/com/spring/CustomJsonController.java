@@ -19,7 +19,7 @@ import java.util.Date;
 @RequestMapping(value = "/")
 public class CustomJsonController {
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.ALL_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_HTML_VALUE)
     @ResponseBody
     String receiveCustomJson(@RequestBody ClassWithDate classWithDate) {
         return classWithDate.toString();
