@@ -11,7 +11,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/")
 public class StartPageController {
-    private List<String> tasks = List.of("Send message", "Create program", "Sleep");
+    private List<String> tasks = List.of("Send message", "Create program");
 
     @GetMapping
     public String startPage(Model template) {

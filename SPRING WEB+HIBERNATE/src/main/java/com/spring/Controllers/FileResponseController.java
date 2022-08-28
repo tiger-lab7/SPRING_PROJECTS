@@ -3,10 +3,12 @@ package com.spring.Controllers;
 /*
  * The FileResponseController class is demonstrated how to return binary zip file by GET request in Spring.
  * Class using Java.NIO for loading the file.
+ * Spring creates new FileResponseController class for every request by @Scope("request") annotation.
  */
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +18,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
 @RestController
+@Scope("request")
 public class FileResponseController {
     private final Logger logger = LoggerFactory.getLogger(FileResponseController.class);
 

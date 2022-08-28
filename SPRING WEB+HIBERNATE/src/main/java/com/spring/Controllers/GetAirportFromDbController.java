@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/db")
-public class GetDBController {
+@RequestMapping(value = "/airports")
+public class GetAirportFromDbController {
     @Autowired
     DbDemoRepository dbDemoRepository;
 
