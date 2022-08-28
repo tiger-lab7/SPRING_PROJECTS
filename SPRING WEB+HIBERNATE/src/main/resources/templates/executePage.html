@@ -13,25 +13,27 @@
 </body>
 
 <script>
-    const serverPath = "/db/execute"; // Path must be relative!
+    const serverPath = "";
     const input = document.getElementById("input");
     const output = document.getElementById("output");
 
     async function executeQuery() {
+	
         let requestObj = {
             method: "POST",
             body: input.value,
-            headers: new Headers({'Content-Type': 'application/text'})
+            headers: new Headers({'Content-Type' : 'text/plain', 'Accept' : 'application/json'})
         }
 
         let request = new Request(serverPath, requestObj);
+
         await fetch(request)
             .then(resp => resp.json())
             .then(jsonContent => {
-                for (let row of jsonContent) {
-                    output.innerHTML = `${row}  ${jsonContent[row]} \n`;
-                }
-            });
+                for (let row of jsonContent)
+                    output.innerHTML += JSON.stringify(row) + '\n';
+            }
+            );
     }
 
 </script>

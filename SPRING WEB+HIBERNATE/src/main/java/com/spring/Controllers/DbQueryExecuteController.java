@@ -26,19 +26,21 @@ public class DbQueryExecuteController {
         return "executePage";
     }
 
-    @PostMapping
+    @PostMapping(consumes = "text/plain", produces = "application/json")
     @ResponseBody
     @SneakyThrows
-    public String executeQuery(@RequestBody String query) {
+    public byte[] executeQuery(@RequestBody String query) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         List<Map<String, Object>> resultList = jdbcTemplate.queryForList(query);
         if (resultList.size() == 0)
-            return "";
+            return new byte[] {};
 
         ObjectWriter objectWriter =
                 objectMapper.writerFor(new TypeReference<List<Map<String, Object>>>() {});
+
         String result = objectWriter.writeValueAsString(resultList);
         System.out.println(result);
-        return result;
+
+        return objectWriter.writeValueAsBytes(resultList);
     }
 }
