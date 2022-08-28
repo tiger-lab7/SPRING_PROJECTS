@@ -29,7 +29,7 @@ public class GetAirportFromDbController {
         return dbDemoRepository.getAirportByAirportCode(airportCode).toString();
     }
 
-    @GetMapping(value = "/getairport/{airportCode}")
+    @GetMapping(value = "/getairport/{airportCode}", produces = "html/text")
     @ResponseBody
     public String getAirportByCodeByPath(
             @PathVariable(value = "airportCode") String airportCode) {
