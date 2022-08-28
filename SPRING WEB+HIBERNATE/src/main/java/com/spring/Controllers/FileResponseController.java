@@ -1,29 +1,39 @@
 package com.spring.Controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 
 @RestController
 public class FileResponseController {
-
-    private byte[] loadFile() {
-        byte[] result = null;
-        try {
-            result = new BufferedInputStream(
-                    new FileInputStream("src/main/resources/LEETCODE.zip"))
-                    .readAllBytes();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return result;
-    }
+    private final Logger logger = LoggerFactory.getLogger(FileResponseController.class);
 
     @GetMapping(value = "/getfile", produces = "application/zip")
     public byte[] getZipFile() {
         return loadFile();
+    }
+
+    private byte[] loadFile() {
+        try (RandomAccessFile file = new RandomAccessFile("src/main/resources/LEETCODE.zip", "r");
+             FileChannel inChannel = file.getChannel()) {
+
+            long fileSize = inChannel.size();
+
+            ByteBuffer buffer = ByteBuffer.allocate((int) fileSize);
+            inChannel.read(buffer);
+            buffer.flip();
+            return buffer.array();
+
+        } catch (IOException ex) {
+            logger.warn(String.valueOf(ex));
+        }
+
+        return new byte[]{};
     }
 }
