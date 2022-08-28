@@ -1,5 +1,10 @@
 package com.spring.Controllers;
 
+/*
+ * The FileResponseController class is demonstrated how to return binary zip file by GET request in Spring.
+ * Class using Java.NIO for loading the file.
+ */
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
