@@ -28,10 +28,12 @@
         let request = new Request(serverPath, requestObj);
 
         await fetch(request)
-            .then(resp => resp.json())
+            .then((resp, reject) => resp.json())
             .then(jsonContent => {
+                let resultString = "";
                 for (let row of jsonContent)
-                    output.innerHTML += JSON.stringify(row) + '\n';
+                     resultString += JSON.stringify(row) + '\n';
+                output.innerHTML = resultString;
             }
             );
     }
