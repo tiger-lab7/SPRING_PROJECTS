@@ -29,12 +29,12 @@ public class FileResponseController {
 
     private byte[] loadFile() {
         try (RandomAccessFile file = new RandomAccessFile("src/main/resources/LEETCODE.zip", "r");
-             FileChannel inChannel = file.getChannel()) {
+             FileChannel inputChannel = file.getChannel()) {
 
-            long fileSize = inChannel.size();
+            long fileSize = inputChannel.size();
 
             ByteBuffer buffer = ByteBuffer.allocate((int) fileSize);
-            inChannel.read(buffer);
+            inputChannel.read(buffer);
             buffer.flip();
             return buffer.array();
 

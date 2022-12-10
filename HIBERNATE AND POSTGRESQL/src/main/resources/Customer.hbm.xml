@@ -1,0 +1,5 @@
+<hibernate-mapping>
+<class>
+    <class="Entities.Customer" table="Customers"></class>
+
+</hibernate-mapping>

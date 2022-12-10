@@ -44,22 +44,19 @@ public class HibernateSessionProvider {
 
     private SessionFactory configHibernateByJava() {
             try {
-                Configuration configuration = new Configuration();
-
                 // Hibernate settings equivalent to hibernate.cfg.xml's properties
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, "org.postgresql.Driver");
                 settings.put(Environment.URL, "jdbc:postgresql://localhost:5432/postgres");
                 settings.put(Environment.USER, "postgres");
                 settings.put(Environment.PASS, "password");
-                settings.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
+                settings.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQL82Dialect");
 
                 settings.put(Environment.SHOW_SQL, "true");
-
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-
                 settings.put(Environment.HBM2DDL_AUTO, "update"); // update, create-drop, create, drop
 
+                Configuration configuration = new Configuration();
                 configuration.setProperties(settings);
 
                 configuration.addAnnotatedClass(Customer.class);

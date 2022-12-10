@@ -25,7 +25,7 @@ public class GetAirportFromDbController {
     @GetMapping(value = "/getairport", produces = "html/text")
     @ResponseBody
     public String getAirportByCode(
-            @RequestParam("code") String airportCode) {
+            @RequestParam(name = "code") String airportCode) {
         return dbDemoRepository.getAirportByAirportCode(airportCode).toString();
     }
 
