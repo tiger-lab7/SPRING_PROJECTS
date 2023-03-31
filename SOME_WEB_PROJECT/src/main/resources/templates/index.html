@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<title>SPRING SERVER</title>
+<body>
+	<form>
+    <input type="hidden" value="@ViewBag.BookId" name="BookId" />
+    <table>
+        <tr><td><p>Введите ваше имя </p></td>
+            <td><input id="input1" type="text" name="Person" /> </td></tr>
+        <tr><td><p>Введите ваш адрес :</p></td>
+            <td><input id="input2" type="text" name="Address" /> </td></tr>
+        <tr><td><input type="submit" value="Отправить" action="sendOnServer()"/> </td>
+                <td></td></tr>
+    </table>
+</form>
+</body>
+
+<script>
+const input1 = document.getElementById("input1");
+const input2 = document.getElementById("input2");
+
+	async function sendOnServer() {
+		reqObj = {
+			method: "POST",
+			body: JSON.stringify({"name" : input1.value, "address" : input2.value}),
+			headers: new Headers({'Content-Type': 'application/json'})
+		}
+		let req = new Request("", reqObj);
+		await fetch(req)
+		.then(resp => {console.log(resp)});
+	}
+</script>

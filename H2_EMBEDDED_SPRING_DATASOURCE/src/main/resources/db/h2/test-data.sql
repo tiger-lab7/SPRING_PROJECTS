@@ -1,0 +1,1 @@
+INSERT INTO Cats(id, name) VALUES (1, 'BARSIK'), (2, 'SNEJOK'), (3, 'PUSHOK');
